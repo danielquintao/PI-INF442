@@ -1,0 +1,22 @@
+#pragma once
+
+#include"graph.hpp"
+#include"vertex.hpp"
+
+#include<stack>
+
+class StrongComponentDetector {
+
+public:
+    StrongComponentDetector(int max_n, graph* graph_);
+    ~StrongComponentDetector();
+    graph* graph_;
+    int max_n; // max number of vertexes
+    int* dfs_number;
+    int* lowlink;
+    int* component;
+    bool* waiting;
+    std::stack<int> stack_; // for the points that were reached during the search but were not yet placed in any component
+    void StrongConnect(vertex* v, int& i, int& component_numb);
+    void ComputeStrongConnectedComponents();
+};

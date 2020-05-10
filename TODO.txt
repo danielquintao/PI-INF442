@@ -1,0 +1,9 @@
+Task 1:
+graph's field EdgeList is already using pointers, but VertexList is not. This can lead to problems if we call AddEdge out of the class
+because the vertices in VertexList would be copies of the "real" vertices.
+If we just set VertexList to pointers, this can be equally awfull if we call AddEdge from inside the class, which we do not do yet but
+will probably do (see next task to do), but I think that this may be the good way.
+
+Task 2:
+Create a constructor for graph class that reads a .txt (as "com-youtube.top5000.cmty.txt") and creates both VertexList and EdgeList. 
+Check the comments of task one about the elements of VertexList being pointers or vertex objects

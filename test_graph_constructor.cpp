@@ -25,6 +25,7 @@ int main(int argc, char const *argv[])
         }
         std::cout << std::endl;
     }
+    
 
     /* same results */
     /*for(std::unordered_map<vertex*,std::unordered_set<vertex*> >::iterator it = g.EdgeList.begin(); it != g.EdgeList.end(); it++)

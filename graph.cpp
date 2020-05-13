@@ -23,9 +23,9 @@ graph::graph(char const* file){
         // if(count_line<=5){
         //     std::cout<< line<<std::endl;
         // }
-        if(count_line<=5){
-            std::cout<< count_line<<",";
-        }
+        // if(count_line<=5){
+        //     std::cout<< count_line<<",";
+        // }
         if(!HasVertex(count_line)){
             vertex p;
             p.id=count_line;
@@ -36,20 +36,23 @@ graph::graph(char const* file){
             int val = std::atoi(word.c_str());
             if(!HasVertex(val)){
                 vertex q;
-                q.id=count_line;
+                q.id=val;
                 AddVertex(q);
-                AddEdge(VertexList[count_line],q);
+                AddEdge(VertexList[count_line],VertexList[val]);
+                // if(count_line<=5){
+                //     std::cout<< HasEdge(VertexList[count_line],q)<<" ";
+                // }
             }
             else{
                 AddEdge(VertexList[count_line],VertexList[val]);
             }
-            if(count_line<=5){
-                std::cout<< val<<" ";
-            }
+            // if(count_line<=5){
+            //     std::cout<< val<<" ";
+            // }
         }       
-        if(count_line<=5){
-                std::cout<<std::endl;
-            }
+        // if(count_line<=5){
+        //         std::cout<<std::endl;
+        //     }
 		count_line ++;
 	}
 	

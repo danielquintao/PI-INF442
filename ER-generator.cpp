@@ -17,7 +17,8 @@ ERGenerator::ERGenerator(int n, double prob) : graph() {
     srand(seed);
     double s = 0;
     for(std::unordered_map<int,vertex>::iterator p=VertexList.begin();p!=VertexList.end();p++){
-        for(std::unordered_map<int,vertex>::iterator q=VertexList.begin();q!=p&&q!=VertexList.end();q++){
+        for(std::unordered_map<int,vertex>::iterator q=VertexList.begin();q!=VertexList.end();q++){
+            if(q==p) continue;
             s=rand()/(double)RAND_MAX;
             if(s<=prob){
                 //std::cout<<1<<std::endl;

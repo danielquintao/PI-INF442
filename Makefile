@@ -1,5 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -g
+ANN_INCLUDE=./ann_1.1.2/include
+ANN_LIB=./ann_1.1.2/lib
 
 test_strong_components_in_ER: test_strong_components_in_ER.o strong-components-detector.o ER-generator.o graph.o vertex.o
 	$(CXX) $(CXXFLAGS) -o test_strong_components_in_ER test_strong_components_in_ER.o strong-components-detector.o ER-generator.o graph.o vertex.o

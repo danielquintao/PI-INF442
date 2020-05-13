@@ -1,0 +1,1 @@
+Task : Adapter constructeur graph(const char* file) pour considerer si le .txt commence avec le sommet 0 ou avec le sommet 1

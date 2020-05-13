@@ -20,6 +20,9 @@ graph::graph(char const* file){
     std::string line, word, temp; 
     int count_line=0;
     while (getline(fin, line)) {
+        // if(count_line<=5){
+        //     std::cout<< line<<std::endl;
+        // }
         if(count_line<=5){
             std::cout<< count_line<<",";
         }
@@ -29,7 +32,7 @@ graph::graph(char const* file){
             AddVertex(p);
         }
         std::stringstream s(line);
-        while (getline(s, word, ' ')) { 
+        while (s>>word) { 
             int val = std::atoi(word.c_str());
             if(!HasVertex(val)){
                 vertex q;

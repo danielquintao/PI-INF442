@@ -11,7 +11,7 @@ void ER(graph& g,double prob){
         for(std::unordered_map<int,vertex>::iterator q=g.VertexList.begin();q!=p&&q!=g.VertexList.end();q++){
             s=rand()/(double)RAND_MAX;
             if(s<=prob){
-                std::cout<<1<<std::endl;
+                //std::cout<<1<<std::endl;
                 g.AddEdge((*p).second,(*q).second);
             }
         }
@@ -51,12 +51,12 @@ int main()
     g.AddVertex(v6);
     g.AddVertex(v7);
     g.AddVertex(v8);
-    std::cout<<g.HasVertex(7)<<std::endl;
+    //std::cout<<"has"<<g.HasVertex(7)<<std::endl;
     int count =0;
     int n=100;
     double prob=0.7;
     for(int i=0;i<n;i++){
-        std::cout<<1<<std::endl;
+        //std::cout<<1<<std::endl;
         ER(g,prob);
         if(g.HasEdge(g.VertexList[0],g.VertexList[6])){
             //std::cout<<1<<std::endl;

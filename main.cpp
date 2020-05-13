@@ -5,14 +5,12 @@
 void ER(graph& g,double prob){
     double s=0;
     g.EdgeList.clear();
-    for(int i=0;i<g.VertexList.size();i++){
-        for(int j=0;j<g.VertexList.size();j++){
-            if(i!=j){
-                s=rand()/(double)RAND_MAX;
-                if(s<=prob){
-                    //std::cout<<1<<std::endl;
-                    g.AddEdge(g.VertexList[i],g.VertexList[j]);
-                }
+    for(std::unordered_map<int,vertex>::iterator p=g.VertexList.begin();p!=g.VertexList.end();p++){
+        for(std::unordered_map<int,vertex>::iterator q=g.VertexList.begin();q!=p&&q!=g.VertexList.end();q++){
+            s=rand()/(double)RAND_MAX;
+            if(s<=prob){
+                //std::cout<<1<<std::endl;
+                g.AddEdge((*p).second,(*q).second);
             }
         }
     }

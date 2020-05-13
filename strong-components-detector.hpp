@@ -8,10 +8,10 @@
 class StrongComponentDetector {
 
 public:
-    StrongComponentDetector(int max_n, graph* graph_);
+    StrongComponentDetector(int max_id, graph* graph_);
     ~StrongComponentDetector();
     graph* graph_;
-    int max_n; // maximal possible valie for the id param in the class "vertex" /!\ .
+    int max_id; // maximal possible value for the id param in the class "vertex" /!\ .
     int* dfs_number;
     int* lowlink;
     int* component;

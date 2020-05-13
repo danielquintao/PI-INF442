@@ -1,6 +1,12 @@
 CXX = g++
 CXXFLAGS = -Wall -g
 
+test_strong_components_in_ER: test_strong_components_in_ER.o strong-components-detector.o ER-generator.o graph.o vertex.o
+	$(CXX) $(CXXFLAGS) -o test_strong_components_in_ER test_strong_components_in_ER.o strong-components-detector.o ER-generator.o graph.o vertex.o
+
+test_strong_components_in_ER.o: strong-components-detector.hpp ER-generator.hpp graph.hpp vertex.hpp
+	$(CXX) $(CXXFLAGS) -c test_strong_components_in_ER.cpp
+
 test_strong-components-detector: test_strong-components-detector.o strong-components-detector.o graph.o vertex.o
 	$(CXX) $(CXXFLAGS) -o test_strong-components-detector test_strong-components-detector.o strong-components-detector.o graph.o vertex.o
 
@@ -33,3 +39,5 @@ graph.o: graph.hpp vertex.hpp
 
 vertex.o: vertex.hpp
 
+clean:
+	rm *.o

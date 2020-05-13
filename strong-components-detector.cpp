@@ -1,13 +1,13 @@
 #include"strong-components-detector.hpp"
 
-StrongComponentDetector::StrongComponentDetector(int max_n, graph* graph_) {
+StrongComponentDetector::StrongComponentDetector(int max_id, graph* graph_) {
     this->graph_ = graph_;
-    this->max_n = max_n;
-    dfs_number = new int[max_n];
-    lowlink = new int[max_n];
-    component = new int[max_n];
-    waiting = new bool[max_n];
-    for(int i = 0; i < max_n; i++)
+    this->max_id = max_id;
+    dfs_number = new int[max_id+1];
+    lowlink = new int[max_id+1];
+    component = new int[max_id+1];
+    waiting = new bool[max_id+1];
+    for(int i = 0; i < max_id+1; i++)
     {
         dfs_number[i] = -1;
         lowlink[i] = -1;

@@ -23,6 +23,12 @@ ER-generator.o: ER-generator.hpp graph.hpp vertex.hpp
 #test_ER.o: test_ER.cpp graph.hpp vertex.hpp
 #	$(CXX) $(CXXFLAGS) -c test_ER.cpp
 
+test_graph_constructor: test_graph_constructor.o graph.o vertex.o
+	$(CXX) $(CXXFLAGS) -o test_graph_constructor test_graph_constructor.o graph.o vertex.o
+
+test_graph_constructor.o: graph.hpp vertex.hpp
+	$(CXX) $(CXXFLAGS) -c test_graph_constructor.cpp
+
 graph.o: graph.hpp vertex.hpp
 
 vertex.o: vertex.hpp

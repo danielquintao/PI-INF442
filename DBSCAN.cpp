@@ -2,21 +2,26 @@
 #include"point.hpp"
 #include <ANN/ANN.h>
 #include<queue>
+#include<iostream>
 
 DBSCAN::DBSCAN(int n, point* points) {
     pa = annAllocPts(n, point::get_dim());
     for(int i = 0; i < n; i++)
     {
-        pa[i] = points[i].coords;
+        for(int m = 0; m < point::get_dim(); m++)
+        {
+            pa[i][m] = points[i].coords[m];
+        }
     }
     kdt = new ANNkd_tree(pa, n, point::get_dim());
-    
+
     this->n = n;
     clusters = new int[n];
     for(int i = 0; i < n; i++)
     {
         clusters[i] = -1;
     }
+    n_clusters = 0;
 }
 
 DBSCAN::~DBSCAN() {
@@ -99,4 +104,5 @@ void DBSCAN::ComputeDBSCAN(double eps, int minpts) {
                 cluster_id++;
         }
     }
+    n_clusters = cluster_id-1;
 }

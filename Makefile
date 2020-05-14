@@ -41,8 +41,8 @@ graph.o: graph.hpp vertex.hpp
 
 vertex.o: vertex.hpp
 
-#test_DBSCAN: test_DBSCAN.cpp DBSCAN.o point.o
-#	$(CXX) $(CXXFLAGS) -I$(ANN_INCLUDE) -o test_DBSCAN test_DBSCAN.cppDBSCAN.o point.o -L$(ANN_LIB) -lANN 
+test_DBSCAN: test_DBSCAN.cpp DBSCAN.o point.o
+	$(CXX) $(CXXFLAGS) -I$(ANN_INCLUDE) -o test_DBSCAN test_DBSCAN.cpp DBSCAN.o point.o -L$(ANN_LIB) -lANN 
 
 DBSCAN.o: DBSCAN.cpp DBSCAN.hpp point.hpp
 	$(CXX) -c -I$(ANN_INCLUDE) $(CXXFLAGS) DBSCAN.cpp 

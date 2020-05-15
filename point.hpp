@@ -1,6 +1,7 @@
 #pragma once
+#include "vertex.hpp"
 
-class point{
+class point:public vertex{
 public:
     point();
     ~point();

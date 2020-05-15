@@ -1,3 +1,3 @@
 #include"vertex.hpp"
 
-vertex::vertex() { };
+vertex::vertex() {id=-1; };

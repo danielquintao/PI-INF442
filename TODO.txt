@@ -3,3 +3,7 @@ Task : Adapter constructeur graph(const char* file) pour considerer si le .txt c
 Task : generer graph a partir de tableau 2D pour comparer le detecteur de strog components avec DBSCAN
 
 Task : Choose good heuristics to choose eps, minpts in DBSCAN, for instance the method mentioned in the own article (not bad to test)
+
+Task: tester le DBSCAN
+
+Task: changer make

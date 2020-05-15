@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include "point.hpp"
 #include<iterator>
 graph::graph(){
     
@@ -60,14 +61,14 @@ graph::graph(char const* file){
 	fin.close();
 }
 
-graph::graph(char const* file, double eps){
+graph::graph(char const* file, double eps, bool coords){
     std::ifstream fin(file);
 	
 	if (fin.fail()) {
 		std::cout<<"Cannot read from file "<<file<<" !"<<std::endl;
 		exit(1);
 	}
-	
+	int count_line=0;
     std::string line,word; 
     while (getline(fin, line)) {
         // if(count_line<=5){
@@ -76,36 +77,51 @@ graph::graph(char const* file, double eps){
         // if(count_line<=5){
         //     std::cout<< count_line<<",";
         // }
-        std::stringstream s(line);
-        int position=0;
-        int pid,qid;
-        double dist;
-        while (s>>word){
-            if(position==0){
-                pid = std::atoi(word.c_str()); 
+        if (!coords){
+            std::stringstream s(line);
+            int position=0;
+            int pid,qid;
+            double dist;
+            while (s>>word){
+                if(position==0){
+                    pid = std::atoi(word.c_str()); 
+                }
+                else if(position==1){
+                    qid = std::atoi(word.c_str()); 
+                }
+                else{
+                    dist=std::atof(word.c_str());
+                }
+                position++;
             }
-            else if(position==1){
-                qid = std::atoi(word.c_str()); 
+            if(!HasVertex(pid)){
+                vertex p;
+                p.id=pid;
+                AddVertex(p);
             }
-            else{
-                dist=std::atof(word.c_str());
+            if(!HasVertex(qid)){
+                vertex q;
+                q.id=qid;
+                AddVertex(q);
             }
-            position++;
-        }
-        if(!HasVertex(pid)){
-            vertex p;
-            p.id=pid;
-            AddVertex(p);
-        }
-        if(!HasVertex(qid)){
-            vertex q;
-            q.id=qid;
-            AddVertex(q);
-        }
-        if(dist>eps){
-            AddEdge(VertexList[pid],VertexList[qid]);
-        }
+            if(dist>eps){
+                AddEdge(VertexList[pid],VertexList[qid]);
+            }
 
+        }
+        else{
+            std::stringstream s(line);
+            int position=0;
+            while (s>>word){
+                
+                position++;
+            }
+            point pt;
+            
+            
+            count_line++;
+        }
+        
 	}
 	
 	fin.close();

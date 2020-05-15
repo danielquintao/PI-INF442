@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
     // }
 
     double eps=1000;
-    graph g_w_dist(argv[1],eps);
+    graph g_w_dist(argv[1],eps,false);
     for(auto elem : g_w_dist.EdgeList) {
         if(elem.first->id > 6) continue;
         std::cout << elem.first->id << ": ";

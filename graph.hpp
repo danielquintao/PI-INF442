@@ -13,9 +13,10 @@ public:
     graph();
     ~graph();
     graph(const char* file);
-    graph(const char* file,double eps, bool coords); //with dis, coords=true: coordonées données
+    graph(const char* file,double eps, int dim); //dim=0 si on n'a pas les coordonées 
     std::unordered_map<vertex*,std::unordered_set<vertex*> > EdgeList;
     std::unordered_map<int,vertex> VertexList;
+    //std::unordered_map<int,point> PointList;
     void AddVertex(vertex& p);
     bool HasVertex(int id);
     //void RemoveVertex(vertex* p);

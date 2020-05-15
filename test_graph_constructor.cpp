@@ -25,9 +25,11 @@ int main(int argc, char const *argv[])
     //     }
     //     std::cout << std::endl;
     // }
-
-    double eps=1000;
-    graph g_w_dist(argv[1],eps,false);
+    int dim=2;
+    double eps=0.5;
+    std::cout<<"test"<<std::endl;
+    graph g_w_dist(argv[1],eps,dim);
+    
     for(auto elem : g_w_dist.EdgeList) {
         if(elem.first->id > 6) continue;
         std::cout << elem.first->id << ": ";
@@ -36,7 +38,7 @@ int main(int argc, char const *argv[])
         }
         std::cout << std::endl;
     }
-    
+    //std::cout << "a" << std::endl;
 
     /* same results */
     /*for(std::unordered_map<vertex*,std::unordered_set<vertex*> >::iterator it = g.EdgeList.begin(); it != g.EdgeList.end(); it++)

@@ -61,23 +61,16 @@ graph::graph(char const* file){
 	fin.close();
 }
 
-graph::graph(char const* file, double eps, bool coords){
+graph::graph(char const* file, double eps, int dim){
     std::ifstream fin(file);
 	
 	if (fin.fail()) {
 		std::cout<<"Cannot read from file "<<file<<" !"<<std::endl;
 		exit(1);
 	}
-	int count_line=0;
     std::string line,word; 
-    while (getline(fin, line)) {
-        // if(count_line<=5){
-        //     std::cout<< line<<std::endl;
-        // }
-        // if(count_line<=5){
-        //     std::cout<< count_line<<",";
-        // }
-        if (!coords){
+    if (dim==0){
+        while (getline(fin, line)) {
             std::stringstream s(line);
             int position=0;
             int pid,qid;
@@ -104,26 +97,47 @@ graph::graph(char const* file, double eps, bool coords){
                 q.id=qid;
                 AddVertex(q);
             }
-            if(dist>eps){
+            if(dist<eps){
                 AddEdge(VertexList[pid],VertexList[qid]);
             }
 
         }
-        else{
+    }   
+    else{
+        std::unordered_map<int,point> PointList;
+        int count_line=0;
+        point::d=dim;
+        while (getline(fin, line)) {
             std::stringstream s(line);
             int position=0;
+            point pt;
+            pt.id=count_line;
+            PointList[pt.id]=pt;
             while (s>>word){
-                
+                PointList[pt.id].coords[position]=std::atof(word.c_str());
+                std::cout<<pt.id<<":"<<PointList[pt.id].coords[0]<<std::endl;
                 position++;
             }
-            point pt;
-            
-            
+            AddVertex(PointList[pt.id]);
             count_line++;
         }
-        
+
+        //std::cout<<count_line<<std::endl;
+        for(int i=0;i<count_line;i++){
+            for(int j=0;j<count_line;j++){
+                //std::cout<<"!"<<std::endl;
+                if(i!=j && PointList[i].dist(PointList[j])<eps){
+                    //std::cout<<"1"<<std::endl;
+                    AddEdge(VertexList[i],VertexList[j]);
+                    //std::cout<<"2"<<std::endl;
+                }
+            }
+        }
+        //std::cout<<count_line<<std::endl;
+        //std::cout<<PointList[0].coords[0]<<std::endl;
+
 	}
-	
+	std::cout<<"1"<<std::endl;
 	fin.close();
 }
 

@@ -11,13 +11,15 @@ class graph
 public:
     graph();
     ~graph();
-    graph(const char* file,bool weight);
+    graph(const char* file);
+    graph(const char* file,double eps); 
     std::unordered_map<vertex*,std::unordered_set<vertex*> > EdgeList;
     std::unordered_map<int,vertex> VertexList;
     void AddVertex(vertex& p);
     bool HasVertex(int id);
     //void RemoveVertex(vertex* p);
     void AddEdge(vertex& p,vertex& q);
+    void AddEdge(vertex& p,vertex& q,double dist);
     void RemoveEdge(vertex& p, vertex& q);
     bool HasEdge(vertex& p, vertex& q);
     

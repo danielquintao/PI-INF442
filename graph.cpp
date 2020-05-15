@@ -3,13 +3,14 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include<iterator>
 graph::graph(){
     
 }
 
 graph::~graph() { }
 
-graph::graph(char const* file,bool weight){
+graph::graph(char const* file){
     std::ifstream fin(file);
 	
 	if (fin.fail()) {
@@ -54,6 +55,57 @@ graph::graph(char const* file,bool weight){
         //         std::cout<<std::endl;
         //     }
 		count_line ++;
+	}
+	
+	fin.close();
+}
+
+graph::graph(char const* file, double eps){
+    std::ifstream fin(file);
+	
+	if (fin.fail()) {
+		std::cout<<"Cannot read from file "<<file<<" !"<<std::endl;
+		exit(1);
+	}
+	
+    std::string line,word; 
+    while (getline(fin, line)) {
+        // if(count_line<=5){
+        //     std::cout<< line<<std::endl;
+        // }
+        // if(count_line<=5){
+        //     std::cout<< count_line<<",";
+        // }
+        std::stringstream s(line);
+        int position=0;
+        int pid,qid;
+        double dist;
+        while (s>>word){
+            if(position==0){
+                pid = std::atoi(word.c_str()); 
+            }
+            else if(position==1){
+                qid = std::atoi(word.c_str()); 
+            }
+            else{
+                dist=std::atof(word.c_str());
+            }
+            position++;
+        }
+        if(!HasVertex(pid)){
+            vertex p;
+            p.id=pid;
+            AddVertex(p);
+        }
+        if(!HasVertex(qid)){
+            vertex q;
+            q.id=qid;
+            AddVertex(q);
+        }
+        if(dist>eps){
+            AddEdge(VertexList[pid],VertexList[qid]);
+        }
+
 	}
 	
 	fin.close();

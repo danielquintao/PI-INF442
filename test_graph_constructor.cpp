@@ -15,9 +15,20 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-	graph g(argv[1]);
+	// graph g(argv[1]);
 
-    for(auto elem : g.EdgeList) {
+    // for(auto elem : g.EdgeList) {
+    //     if(elem.first->id > 6) continue;
+    //     std::cout << elem.first->id << ": ";
+    //     for(auto v : elem.second) {
+    //         std::cout << v->id << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
+
+    double eps=1000;
+    graph g_w_dist(argv[1],eps);
+    for(auto elem : g_w_dist.EdgeList) {
         if(elem.first->id > 6) continue;
         std::cout << elem.first->id << ": ";
         for(auto v : elem.second) {

@@ -11,7 +11,7 @@ class graph
 public:
     graph();
     ~graph();
-    graph(const char* file);
+    graph(const char* file,bool weight);
     std::unordered_map<vertex*,std::unordered_set<vertex*> > EdgeList;
     std::unordered_map<int,vertex> VertexList;
     void AddVertex(vertex& p);

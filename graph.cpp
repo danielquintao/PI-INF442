@@ -9,7 +9,7 @@ graph::graph(){
 
 graph::~graph() { }
 
-graph::graph(char const* file){
+graph::graph(char const* file,bool weight){
     std::ifstream fin(file);
 	
 	if (fin.fail()) {

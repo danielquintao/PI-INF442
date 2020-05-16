@@ -37,17 +37,17 @@ test_graph_constructor: test_graph_constructor.o graph.o vertex.o point.o
 test_graph_constructor.o: graph.hpp vertex.hpp point.hpp
 	$(CXX) $(CXXFLAGS) -c test_graph_constructor.cpp
 
-graph.o: graph.hpp vertex.hpp point.hpp
+graph.o: graph.hpp vertex.hpp point.hpp vertex.hpp ###
 
-vertex.o: vertex.hpp
+test_DBSCAN: test_DBSCAN.cpp DBSCAN.o point.o vertex.o ###
+	$(CXX) $(CXXFLAGS) -I$(ANN_INCLUDE) -o test_DBSCAN test_DBSCAN.cpp DBSCAN.o point.o vertex.o -L$(ANN_LIB) -lANN 
 
-test_DBSCAN: test_DBSCAN.cpp DBSCAN.o point.o
-	$(CXX) $(CXXFLAGS) -I$(ANN_INCLUDE) -o test_DBSCAN test_DBSCAN.cpp DBSCAN.o point.o -L$(ANN_LIB) -lANN 
-
-DBSCAN.o: DBSCAN.cpp DBSCAN.hpp point.hpp
+DBSCAN.o: DBSCAN.cpp DBSCAN.hpp point.hpp vertex.hpp ###
 	$(CXX) -c -I$(ANN_INCLUDE) $(CXXFLAGS) DBSCAN.cpp 
 
-point.o: point.hpp
+point.o: point.hpp vertex.hpp ###
+
+vertex.o: vertex.hpp
 
 clean:
 	rm *.o

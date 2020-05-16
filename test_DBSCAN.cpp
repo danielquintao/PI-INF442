@@ -1,5 +1,6 @@
 #include"DBSCAN.hpp"
 #include"point.hpp"
+#include"vertex.hpp"
 #include<iostream>
 #include<fstream>
 

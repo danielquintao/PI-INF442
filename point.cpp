@@ -1,7 +1,7 @@
 #include"point.hpp"
 #include<cmath>
 
-point::point() {
+point::point() : vertex() {
     coords = new double[d];
     for(int i = 0; i < d; i++)
     {

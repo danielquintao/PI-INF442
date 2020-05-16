@@ -104,9 +104,9 @@ graph::graph(char const* file, double eps, int dim){
         }
     }   
     else{
+        point::d=dim;
         std::unordered_map<int,point> PointList;
         int count_line=0;
-        point::d=dim;
         while (getline(fin, line)) {
             std::stringstream s(line);
             int position=0;
@@ -116,6 +116,7 @@ graph::graph(char const* file, double eps, int dim){
             while (s>>word){
                 PointList[pt.id].coords[position]=std::atof(word.c_str());
                 std::cout<<pt.id<<":"<<PointList[pt.id].coords[0]<<std::endl;
+                if(pt.id > 0) std::cout<<pt.id-1<<" repeat :"<<PointList[pt.id-1].coords[0]<<std::endl;
                 position++;
             }
             AddVertex(PointList[pt.id]);

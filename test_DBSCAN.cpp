@@ -45,8 +45,11 @@ int main() {
     load(is, points, 150);
     
     DBSCAN dbscan(150, points);
-    dbscan.ComputeDBSCAN(0.2, 5);
-
+    for(int eps=0.1;eps<1;eps+=0.1){
+         dbscan.ComputeDBSCAN(eps, 5);
+         std::cout<<"eps"<<eps<<", s: "<<dbscan.silhouette()<<std::endl;
+    }
+   
     std::cout << "number of clusters: " << dbscan.n_clusters << std::endl;
     //for(int i = 0; i < 150; i++)
     //    std::cout << points[i].coords[0] << " " << points[i].coords[1] << ": cluster " << dbscan.clusters[i] << std::endl;

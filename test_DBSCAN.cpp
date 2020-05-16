@@ -45,7 +45,7 @@ int main() {
     load(is, points, 150);
     
     DBSCAN dbscan(150, points);
-    for(int eps=0.1;eps<1;eps+=0.1){
+    for(double eps=0.1;eps<2;eps+=0.1){
          dbscan.ComputeDBSCAN(eps, 5);
          std::cout<<"eps"<<eps<<", s: "<<dbscan.silhouette()<<std::endl;
     }

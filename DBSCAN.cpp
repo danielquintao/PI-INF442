@@ -106,38 +106,47 @@ void DBSCAN::ComputeDBSCAN(double eps, int minpts) {
         }
     }
     n_clusters = cluster_id-1;
+    //std::cout << "debug - DBSCAN.cpp - n_clusters=" << n_clusters << "\n";
+}
+
+void DBSCAN::ResetDBSCAN() {
+    for(int i = 0; i < n; i++)
+    {
+        clusters[i] = -1;
+    }
+    n_clusters = 0;
 }
 
 double DBSCAN::silhouette_p(int pt){//index of point in PointArray
     if(clusters[pt]>0){
         double ap=0;
         double bp=0;
-        int na=0;
-        int nb[n_clusters+1];
-        double b_dist[n_clusters+1];
-        nb[clusters[pt]]=0;
-        b_dist[clusters[pt]]=0;
-        for(int i=0;i<n;i++){
-            if(i==pt) continue;
-            if(clusters[i]==clusters[pt]){
-                na++;
-                ap+=PointArray[pt].dist(PointArray[i]);
-            }
-            else{
-                b_dist[clusters[i]]+=PointArray[pt].dist(PointArray[i]);
-                nb[clusters[i]]++;
-            }
+        //int na=0; // number of elements in pt's clusters
+        int nb[n_clusters+1]; // number of elements in each cluster
+        double dist[n_clusters+1]; // total (next set ti "average") distance from pt to each cluster
+        for(int j = 0; j < n_clusters+1; j++)
+        {
+            nb[j] = 0;
+            dist[j] = 0;
         }
-        ap=ap/(float)na;
-        b_dist[0]=b_dist[0]/(float)nb[0];
-        bp=b_dist[0];
+        for(int i=0;i<n;i++){
+            // if(i==pt) continue;
+            if(clusters[i] == 0) continue; // NOISE
+            dist[clusters[i]]+=PointArray[pt].dist(PointArray[i]);
+            nb[clusters[i]]++;
+            
+        }
+        ap=dist[clusters[pt]] /(float)nb[clusters[pt]];
+        //b_dist[0]=b_dist[0]/(float)nb[0];
+        //bp=b_dist[0];
+        bp = dist[1];
         for(int j=1;j<n_clusters+1;j++){
             if(j==clusters[pt]) continue;
             else
             {
-                b_dist[j]=b_dist[j]/(float)nb[j];
-                if(bp>b_dist[j]){
-                    bp=b_dist[j];
+                dist[j]=dist[j]/(float)nb[j];
+                if(bp>dist[j]){
+                    bp=dist[j];
                 }
             }
             
@@ -150,6 +159,7 @@ double DBSCAN::silhouette_p(int pt){//index of point in PointArray
         }
     }
     else{
+        std::cout << "noise point - this line should normally be printed iff we consider noise points\n";
         return 0;
     }
     
@@ -157,7 +167,7 @@ double DBSCAN::silhouette_p(int pt){//index of point in PointArray
 
 double DBSCAN::silhouette(){
     int n_no_noise=0;
-    int s=0;
+    double s=0;
     for(int i=0;i<n;i++){
         if(clusters[i]>0){
             s+=silhouette_p(i);

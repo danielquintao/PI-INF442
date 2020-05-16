@@ -13,6 +13,7 @@ public:
     int n_clusters;
     int* clusters; // -1 = UNCLASSIFIED ; 0 = OUTLIER/NOISE ; >0 = CLUSTER NAME
     void ComputeDBSCAN(double eps, int minpts);
+    void ResetDBSCAN(); // reset all clusters to UNCLASSIFIED
     bool ExpandCluster(int point_idx, int cluster_id, double eps, int minpts);
     double silhouette_p(int pt);
     double silhouette();

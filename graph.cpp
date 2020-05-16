@@ -22,12 +22,6 @@ graph::graph(char const* file){
     std::string line, word, temp; 
     int count_line=0;
     while (getline(fin, line)) {
-        // if(count_line<=5){
-        //     std::cout<< line<<std::endl;
-        // }
-        // if(count_line<=5){
-        //     std::cout<< count_line<<",";
-        // }
         if(!HasVertex(count_line)){
             vertex p;
             p.id=count_line;
@@ -41,20 +35,11 @@ graph::graph(char const* file){
                 q.id=val;
                 AddVertex(q);
                 AddEdge(VertexList[count_line],VertexList[val]);
-                // if(count_line<=5){
-                //     std::cout<< HasEdge(VertexList[count_line],q)<<" ";
-                // }
             }
             else{
                 AddEdge(VertexList[count_line],VertexList[val]);
             }
-            // if(count_line<=5){
-            //     std::cout<< val<<" ";
-            // }
         }       
-        // if(count_line<=5){
-        //         std::cout<<std::endl;
-        //     }
 		count_line ++;
 	}
 	
@@ -106,7 +91,7 @@ graph::graph(char const* file, double eps, int dim){
     else{
         point::d=dim;
         //std::unordered_map<int,point> PointList;
-        int n=1000000;//need to change
+        int n=1000000;//need to change if there are really too many points
         point* pts=new point[n];
         int count_line=0;
         while (getline(fin, line)) {
@@ -119,15 +104,12 @@ graph::graph(char const* file, double eps, int dim){
             while (s>>word){
                 //PointList[pt.id].coords[position]=std::atof(word.c_str());
                 pts[count_line].coords[position]=std::atof(word.c_str());
-                //std::cout<<pts[count_line].id<<":"<<pts[count_line].coords[0]<<std::endl;
-                //if(pts[count_line].id > 0) std::cout<<pts[count_line].id-1<<" repeat :"<<pts[count_line-1].coords[0]<<std::endl;
                 position++;
             }
             AddVertex(pts[count_line]);
             count_line++;
         }
 
-        //std::cout<<count_line<<std::endl;
         for(int i=0;i<count_line;i++){
             for(int j=0;j<count_line;j++){
                 if(i!=j && pts[i].dist(pts[j])<eps){
@@ -142,6 +124,7 @@ graph::graph(char const* file, double eps, int dim){
 void graph::AddVertex(vertex& p){
     VertexList[p.id]=p;
 }
+
 bool graph::HasVertex(int id){
     return (VertexList.find(id)!=VertexList.end());
 }
@@ -149,9 +132,11 @@ bool graph::HasVertex(int id){
 void graph::AddEdge(vertex& p,vertex& q){
     EdgeList[&p].insert(&q);
 }
+
 void graph::RemoveEdge(vertex& p,vertex& q){
     EdgeList[&p].erase(&q);
 }
+
 bool graph::HasEdge(vertex& p, vertex& q){
     if(EdgeList[&p].find(&q)==EdgeList[&p].end()){
         return false;

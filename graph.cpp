@@ -105,40 +105,37 @@ graph::graph(char const* file, double eps, int dim){
     }   
     else{
         point::d=dim;
-        std::unordered_map<int,point> PointList;
+        //std::unordered_map<int,point> PointList;
+        int n=1000000;//need to change
+        point* pts=new point[n];
         int count_line=0;
         while (getline(fin, line)) {
             std::stringstream s(line);
             int position=0;
-            point pt;
-            pt.id=count_line;
-            PointList[pt.id]=pt;
+            pts[count_line].id=count_line;
+            //point pt;
+            //pt.id=count_line;
+            //PointList[pt.id]=pt;
             while (s>>word){
-                PointList[pt.id].coords[position]=std::atof(word.c_str());
-                std::cout<<pt.id<<":"<<PointList[pt.id].coords[0]<<std::endl;
-                if(pt.id > 0) std::cout<<pt.id-1<<" repeat :"<<PointList[pt.id-1].coords[0]<<std::endl;
+                //PointList[pt.id].coords[position]=std::atof(word.c_str());
+                pts[count_line].coords[position]=std::atof(word.c_str());
+                //std::cout<<pts[count_line].id<<":"<<pts[count_line].coords[0]<<std::endl;
+                //if(pts[count_line].id > 0) std::cout<<pts[count_line].id-1<<" repeat :"<<pts[count_line-1].coords[0]<<std::endl;
                 position++;
             }
-            AddVertex(PointList[pt.id]);
+            AddVertex(pts[count_line]);
             count_line++;
         }
 
         //std::cout<<count_line<<std::endl;
         for(int i=0;i<count_line;i++){
             for(int j=0;j<count_line;j++){
-                //std::cout<<"!"<<std::endl;
-                if(i!=j && PointList[i].dist(PointList[j])<eps){
-                    //std::cout<<"1"<<std::endl;
+                if(i!=j && pts[i].dist(pts[j])<eps){
                     AddEdge(VertexList[i],VertexList[j]);
-                    //std::cout<<"2"<<std::endl;
                 }
             }
         }
-        //std::cout<<count_line<<std::endl;
-        //std::cout<<PointList[0].coords[0]<<std::endl;
-
 	}
-	std::cout<<"1"<<std::endl;
 	fin.close();
 }
 

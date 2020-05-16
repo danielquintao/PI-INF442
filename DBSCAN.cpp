@@ -6,6 +6,7 @@
 
 DBSCAN::DBSCAN(int n, point* points) {
     pa = annAllocPts(n, point::get_dim());
+    PointArray=points;
     for(int i = 0; i < n; i++)
     {
         for(int m = 0; m < point::get_dim(); m++)
@@ -105,4 +106,63 @@ void DBSCAN::ComputeDBSCAN(double eps, int minpts) {
         }
     }
     n_clusters = cluster_id-1;
+}
+
+double DBSCAN::silhouette_p(int pt){//index of point in PointArray
+    if(clusters[pt]>0){
+        double ap=0;
+        double bp=0;
+        int na=0;
+        int nb[n_clusters+1];
+        double b_dist[n_clusters+1];
+        nb[clusters[pt]]=0;
+        b_dist[clusters[pt]]=0;
+        for(int i=0;i<n;i++){
+            if(i==pt) continue;
+            if(clusters[i]==clusters[pt]){
+                na++;
+                ap+=PointArray[pt].dist(PointArray[i]);
+            }
+            else{
+                b_dist[clusters[i]]+=PointArray[pt].dist(PointArray[i]);
+                nb[clusters[i]]++;
+            }
+        }
+        ap=ap/(float)na;
+        b_dist[0]=b_dist[0]/(float)nb[0];
+        bp=b_dist[0];
+        for(int j=1;j<n_clusters+1;j++){
+            if(j==clusters[pt]) continue;
+            else
+            {
+                b_dist[j]=b_dist[j]/(float)nb[j];
+                if(bp>b_dist[j]){
+                    bp=b_dist[j];
+                }
+            }
+            
+        }
+        if(ap>bp){
+            return(bp-ap)/ap;
+        }
+        else{
+            return (bp-ap)/bp;
+        }
+    }
+    else{
+        return 0;
+    }
+    
+}
+
+double DBSCAN::silhouette(){
+    int n_no_noise=0;
+    int s=0;
+    for(int i=0;i<n;i++){
+        if(clusters[i]>0){
+            s+=silhouette_p(i);
+            n_no_noise++;
+        }
+    }
+    return s/(float)n_no_noise;
 }

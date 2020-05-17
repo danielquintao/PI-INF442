@@ -65,11 +65,11 @@ int main(int argc, char const *argv[]) {
     {
         double eps = std::atof(argv[2]);
         int minpts = std::atoi(argv[3]);
-        auto start = std::chrono::high_resolution_clock::now();
+        auto time1 = std::chrono::high_resolution_clock::now();
         dbscan.ComputeDBSCAN(eps, minpts);
-        auto end = std::chrono::high_resolution_clock::now();
+        auto time2 = std::chrono::high_resolution_clock::now();
         std::cout << dbscan.n_clusters << " clusters found" << std::endl;
-        std::cout << "DBSCAN execution time: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << " ms" << std::endl;
+        std::cout << "DBSCAN execution time: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(time2-time1).count() << " ms" << std::endl;
         generate_classified_output(dbscan);
     }
 
@@ -82,8 +82,10 @@ int main(int argc, char const *argv[]) {
         std::cout << "silhouette X eps (P.S. eps too small -> no cluster -> s = awkward value)" << std::endl;
         for(double eps = start; eps < end; eps += step){
             dbscan.ResetDBSCAN();
+            auto time1 = std::chrono::high_resolution_clock::now();
             dbscan.ComputeDBSCAN(eps, minpts);
-            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette()<<std::endl;
+            auto time2 = std::chrono::high_resolution_clock::now();
+            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette()<< ", execution time: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(time2-time1).count() << " ms"<<std::endl;
         }
     }
     
@@ -96,8 +98,10 @@ int main(int argc, char const *argv[]) {
         std::cout << "silhouette X minpts (P.S. minpts too big -> no cluster -> s = awkward value)" << std::endl;
         for(int minpts = start; minpts < end; minpts += step){
             dbscan.ResetDBSCAN();
+            auto time1 = std::chrono::high_resolution_clock::now();
             dbscan.ComputeDBSCAN(eps, minpts);
-            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette()<<std::endl;
+            auto time2 = std::chrono::high_resolution_clock::now();
+            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette()<< ", execution time: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(time2-time1).count() << " ms"<<std::endl;
         }
     }
     

@@ -3,6 +3,7 @@
 #include"vertex.hpp"
 #include<iostream>
 #include<fstream>
+#include<chrono>
 
 void load(std::ifstream &is, point* points, int& n_points) {
     int idx = 0;
@@ -64,8 +65,11 @@ int main(int argc, char const *argv[]) {
     {
         double eps = std::atof(argv[2]);
         int minpts = std::atoi(argv[3]);
+        auto start = std::chrono::high_resolution_clock::now();
         dbscan.ComputeDBSCAN(eps, minpts);
+        auto end = std::chrono::high_resolution_clock::now();
         std::cout << dbscan.n_clusters << " clusters found" << std::endl;
+        std::cout << "DBSCAN execution time: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << " ms" << std::endl;
         generate_classified_output(dbscan);
     }
 

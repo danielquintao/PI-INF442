@@ -5,6 +5,7 @@
 
 #include<iostream>
 #include<fstream>
+#include<chrono>
 
 int main(int argc, char const *argv[]) {
 
@@ -18,7 +19,9 @@ int main(int argc, char const *argv[]) {
     int dim=std::atoi(argv[2]);
     point::d = dim;
     double eps=std::atof(argv[3]);
+    auto time1 = std::chrono::high_resolution_clock::now();
     graph g(argv[1],eps,dim);
+    auto time2 = std::chrono::high_resolution_clock::now();
 
     // saving points coordinates to prepare a fancy output file with the clusters
     int idx = 0;
@@ -41,8 +44,11 @@ int main(int argc, char const *argv[]) {
     std::cout << "number of vertices with at least one neighbour:" << g.EdgeList.size() << std::endl;
     std::cout << "total number of vertices :" << g.VertexList.size() << std::endl;
 
+    auto time3 = std::chrono::high_resolution_clock::now();
     StrongComponentDetector detector(g.VertexList.size()-1, &g);
+    auto time4 = std::chrono::high_resolution_clock::now();
     detector.ComputeStrongConnectedComponents();
+    auto time5 = std::chrono::high_resolution_clock::now();
 
     std::ofstream os;
     std::string s (argv[1]);
@@ -58,6 +64,9 @@ int main(int argc, char const *argv[]) {
     }
     os.close();
     std::cout << "output file generated \nformat : coord_1 coord_2 ... coord_d component\n";
+
+    std::cout << "time to build graph from dataset: " << std::chrono::duration_cast<std::chrono::milliseconds>(time2-time1).count() << " ms" << std::endl;
+    std::cout << "time to tarjan algo (without kd-tree construction): " << std::chrono::duration_cast<std::chrono::milliseconds>(time5-time4).count() << " ms" << std::endl;
 
     return 0;
 }

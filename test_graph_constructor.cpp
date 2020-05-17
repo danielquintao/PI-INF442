@@ -1,4 +1,5 @@
 #include"vertex.hpp"
+#include"point.hpp"
 #include "graph.hpp"
 #include <chrono>
 #include <random>
@@ -17,6 +18,7 @@ int main(int argc, char const *argv[])
     }
 
     int dim=std::atoi(argv[2]);
+    point::d=dim;
     double eps=std::atof(argv[3]);
     std::cout<<"test"<<std::endl;
     graph g_w_dist(argv[1],eps,dim);

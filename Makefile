@@ -25,6 +25,9 @@ test_ER-generator.o: ER-generator.hpp graph.hpp vertex.hpp point.hpp
 
 ER-generator.o: ER-generator.hpp graph.hpp vertex.hpp point.hpp
 
+test_dataset_strong: test_dataset_strong.cpp strong-components-detector.o graph.o vertex.o point.o
+	$(CXX) $(CXXFLAGS) -o test_dataset_strong test_dataset_strong.cpp strong-components-detector.o graph.o vertex.o point.o
+
 #test_ER: test_ER.o graph.o vertex.o 
 #	$(CXX) $(CXXFLAGS) -o test_ER test_ER.o graph.o vertex.o
 

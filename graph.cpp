@@ -89,7 +89,6 @@ graph::graph(char const* file, double eps, int dim){
         }
     }   
     else{
-        point::d=dim;
         //std::unordered_map<int,point> PointList;
         int n=1000000;//need to change if there are really too many points
         point* pts=new point[n];

@@ -79,7 +79,8 @@ int main(int argc, char const *argv[]) {
         for(double eps = start; eps < end; eps += step){
             dbscan.ResetDBSCAN();
             dbscan.ComputeDBSCAN(eps, minpts);
-            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette()<<std::endl;
+            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette();
+            std::cout<< ", s_modified: "<<dbscan.non_convex_silhouette(minpts)<<std::endl;
         }
     }
     
@@ -93,7 +94,8 @@ int main(int argc, char const *argv[]) {
         for(int minpts = start; minpts < end; minpts += step){
             dbscan.ResetDBSCAN();
             dbscan.ComputeDBSCAN(eps, minpts);
-            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette()<<std::endl;
+            std::cout<< "eps: " << eps << ", minpts: " << minpts << ", number of clusters: " << dbscan.n_clusters << ", s: "<<dbscan.silhouette();
+            std::cout<< ", s_modified: "<<dbscan.non_convex_silhouette(minpts)<<std::endl;
         }
     }
     

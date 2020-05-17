@@ -1,5 +1,5 @@
 #include"point.hpp"
-#include <ANN/ANN.h>
+#include "ANN/ANN.h"
 
 class DBSCAN {
 public:
@@ -17,4 +17,5 @@ public:
     bool ExpandCluster(int point_idx, int cluster_id, double eps, int minpts);
     double silhouette_p(int pt);
     double silhouette();
+    double non_convex_silhouette(int minpts);
 };

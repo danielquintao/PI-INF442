@@ -1,6 +1,6 @@
 #include"DBSCAN.hpp"
 #include"point.hpp"
-#include <ANN/ANN.h>
+#include "ANN/ANN.h"
 #include<queue>
 #include<iostream>
 
@@ -175,4 +175,47 @@ double DBSCAN::silhouette(){
         }
     }
     return s/(float)n_no_noise;
+}
+
+double DBSCAN::non_convex_silhouette(int k){
+    int n_noise=0;
+    int n_no_noise=0;
+    double k_dist_noise=0;
+    double k_dist_no_noise=0;
+    for(int i=0;i<n;i++){
+       if(clusters[i]==0){
+            n_noise++;
+            ANNidxArray nn_idx= new ANNidx[k];
+            ANNdistArray dist_dd = new ANNdist[k];
+            kdt->annkSearch(pa[i], k, nn_idx, dist_dd, 0.0);
+            k_dist_noise+=dist_dd[k-1];
+            delete[] nn_idx;
+            delete[] dist_dd;
+        }
+       else if(clusters[i]>0){
+            n_no_noise++;
+            ANNidxArray nn_idx= new ANNidx[k];
+            ANNdistArray dist_dd = new ANNdist[k];
+            kdt->annkSearch(pa[i], k, nn_idx, dist_dd, 0.0);
+            k_dist_no_noise+=dist_dd[k-1];
+            delete[] nn_idx;
+            delete[] dist_dd;
+        }
+       else{
+           std::cout<<"unclassified point detected"<<std::endl;
+           return -1;
+        }
+    }
+    if(n_noise!=0){
+        k_dist_noise=k_dist_noise/(float)n_noise;
+    }
+    if(n_no_noise!=0){
+        k_dist_no_noise=k_dist_no_noise/(float)n_no_noise;
+    }
+    if(k_dist_noise>k_dist_no_noise){
+        return (k_dist_noise-k_dist_no_noise)/k_dist_noise;
+    }
+    else{
+        return (k_dist_noise-k_dist_no_noise)/k_dist_no_noise;
+    }
 }

@@ -9,6 +9,9 @@ test_strong_components_in_ER: test_strong_components_in_ER.o strong-components-d
 test_strong_components_in_ER.o: strong-components-detector.hpp ER-generator.hpp graph.hpp vertex.hpp point.hpp
 	$(CXX) $(CXXFLAGS) -c test_strong_components_in_ER.cpp
 
+n_componentsXp: n_componentsXp.cpp strong-components-detector.o ER-generator.o graph.o vertex.o point.o
+	$(CXX) $(CXXFLAGS) -o n_componentsXp n_componentsXp.cpp strong-components-detector.o ER-generator.o graph.o vertex.o point.o
+
 test_strong-components-detector: test_strong-components-detector.o strong-components-detector.o graph.o vertex.o point.o
 	$(CXX) $(CXXFLAGS) -o test_strong-components-detector test_strong-components-detector.o strong-components-detector.o graph.o vertex.o point.o
 

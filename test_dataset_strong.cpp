@@ -66,7 +66,8 @@ int main(int argc, char const *argv[]) {
     os.close();
     std::cout << "output file generated \nformat : coord_1 coord_2 ... coord_d component\n";
     std::cout << "total of " << (*std::max_element(detector.component, detector.component + sizeof(detector.component)/sizeof(int))) << " components" << std::endl;
-
+    // developer note : due to a deep mistery, using the above expression for retrieving the number of clusters will not work with the file "test_graph_strong" (in that case we used the explicit number of vertices)
+    
     std::cout << "time to build graph from dataset: " << std::chrono::duration_cast<std::chrono::milliseconds>(time2-time1).count() << " ms" << std::endl;
     std::cout << "time to tarjan algo (without kd-tree construction): " << std::chrono::duration_cast<std::chrono::milliseconds>(time5-time4).count() << " ms" << std::endl;
 

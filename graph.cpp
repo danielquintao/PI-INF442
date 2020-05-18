@@ -11,7 +11,7 @@ graph::graph(){
 
 graph::~graph() { }
 
-graph::graph(char const* file) {
+graph::graph(char const* file, int offset) {
     std::ifstream is(file);
     if (is.fail()) {
 		std::cout<<"Cannot read from file "<<file<<" !"<<std::endl;
@@ -43,10 +43,9 @@ graph::graph(char const* file) {
 
 		// consume \n :
 		is.get();
-        // std::cout << idx-1 << ": " << points[idx-1].coords[0] << " " << points[idx-1].coords[1] << std::endl;
 	}
 
-    for(int i = 0; i <= max_id; i++)
+    for(int i = offset; i <= max_id; i++)
     {
         if(!HasVertex(i)) {
             vertex p;
@@ -54,56 +53,6 @@ graph::graph(char const* file) {
             AddVertex(p);
         }
     }
-}
-
-graph::graph(char const* file, bool start_in_zero){
-    std::ifstream fin(file);
-	
-	if (fin.fail()) {
-		std::cout<<"Cannot read from file "<<file<<" !"<<std::endl;
-		exit(1);
-	}
-	int max_index;
-    int start = 0;
-    std::string line, word, temp; 
-    int count_line;
-    if(!start_in_zero) start  =1;
-    count_line = start;
-    max_index = count_line;
-    while (getline(fin, line)) {
-        if(!HasVertex(count_line)){
-            vertex p;
-            p.id=count_line;
-            AddVertex(p);
-        }
-        std::stringstream s(line);
-        while (s>>word) { 
-            int val = std::atoi(word.c_str());
-            if(!HasVertex(val)){
-                vertex q;
-                q.id=val;
-                AddVertex(q);
-                AddEdge(VertexList[count_line],VertexList[val]);
-            }
-            else{
-                AddEdge(VertexList[count_line],VertexList[val]);
-            }
-            if(val > max_index) max_index = val;
-        }       
-		count_line ++;
-	}
-
-    max_index = std::max(count_line-1, max_index);
-    for(int i = start; i <= max_index; i++)
-    {
-        if(!HasVertex(i)) {
-            vertex p;
-            p.id = i;
-            AddVertex(p);
-        }
-    }
-	
-	fin.close();
 }
 
 graph::graph(char const* file, double eps, int dim){

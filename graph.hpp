@@ -12,9 +12,8 @@ class graph
 public:
     graph();
     ~graph();
-    graph(const char* file);
-    graph(const char* file, bool start_in_zero);//file avec vertx et ses voisins
-    graph(const char* file,double eps, int dim); //dim=0 si on n'a pas les coordonées 
+    graph(const char* file, int offset = 0); // constructor for graphs
+    graph(const char* file,double eps, int dim); // constructor for N-dim datasets or weighted graphs (dim = 0) 
     std::unordered_map<vertex*,std::unordered_set<vertex*> > EdgeList;
     std::unordered_map<int,vertex> VertexList;
     //std::unordered_map<int,point> PointList;

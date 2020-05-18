@@ -18,6 +18,9 @@ test_strong-components-detector: test_strong-components-detector.o strong-compon
 test_strong-components-detector.o: strong-components-detector.hpp graph.hpp vertex.hpp point.hpp
 	$(CXX) $(CXXFLAGS) -c test_strong-components-detector.cpp
 
+test_graph_strong: test_graph_strong.cpp strong-components-detector.o graph.o vertex.o point.o
+	$(CXX) $(CXXFLAGS) -o test_graph_strong test_graph_strong.cpp strong-components-detector.o graph.o vertex.o point.o
+
 strong-components-detector.o: strong-components-detector.hpp graph.hpp vertex.hpp point.hpp
 
 test_ER-generator: test_ER-generator.o ER-generator.o graph.o vertex.o point.o

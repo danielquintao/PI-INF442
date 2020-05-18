@@ -64,4 +64,5 @@ void StrongComponentDetector::ComputeStrongConnectedComponents()
         vertex* v = elem.first;
         if(dfs_number[v->id] == -1) StrongConnect(v, i, component_numb);
     }
+    //std::cout << "comp: " << component_numb << " , max_elem: " << (*std::max_element(component, component + sizeof(component)/sizeof(int)));
 }

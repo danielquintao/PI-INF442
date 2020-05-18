@@ -4,6 +4,8 @@
 #include"vertex.hpp"
 
 #include<stack>
+#include<iostream>
+#include<algorithm>
 
 class StrongComponentDetector {
 

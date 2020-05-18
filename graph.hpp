@@ -12,7 +12,8 @@ class graph
 public:
     graph();
     ~graph();
-    graph(const char* file);//file avec vertx et ses voisins
+    graph(const char* file);
+    graph(const char* file, bool start_in_zero);//file avec vertx et ses voisins
     graph(const char* file,double eps, int dim); //dim=0 si on n'a pas les coordonées 
     std::unordered_map<vertex*,std::unordered_set<vertex*> > EdgeList;
     std::unordered_map<int,vertex> VertexList;

@@ -10,7 +10,7 @@
 int main(){
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     srand(seed);
-    int n=100000; //number of points
+    int n=10000; //number of points
     int nc=rand()%20+1; //number of centers
     double x[nc];
     double y[nc];
@@ -27,7 +27,7 @@ int main(){
     std::default_random_engine generator;
     int gauss;
     std::ofstream myfile;
-    myfile.open ("data/data_100000.txt");
+    myfile.open ("data/data_10000.txt");
     for (int i=0;i<n;i++) {
         std::cout<<i<<std::endl;
         gauss=rand()%nc;

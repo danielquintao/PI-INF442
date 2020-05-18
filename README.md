@@ -18,5 +18,7 @@
 * test_ER-generator.cpp: builds fixed size random ER digraph and prints its adjacency list
 * test_strong_components_in_ER.cpp: builds ER digraph of fixed size, then applies Tarjan algorithm on it
 * n_componentsXp.cpp: applies Tarjan algorithm on sets of ER-digraphs obtained for differente values of p
+* random_points_generator.cpp : generate random 2D datasets with as mush as 20 clusters (each one in normal distribution)
 * test_DBSCAN.cpp: gets dataset as file and applies DBSCAN algorithm on it (can generate output file); run w/o arg to see usage
 * test_dataset_strong.cpp: gets dataset as file, applies Tarjan algorithm and generates output file
+

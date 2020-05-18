@@ -31,12 +31,6 @@ ER-generator.o: ER-generator.hpp graph.hpp vertex.hpp point.hpp
 test_dataset_strong: test_dataset_strong.cpp strong-components-detector.o graph.o vertex.o point.o
 	$(CXX) $(CXXFLAGS) -o test_dataset_strong test_dataset_strong.cpp strong-components-detector.o graph.o vertex.o point.o
 
-#test_ER: test_ER.o graph.o vertex.o 
-#	$(CXX) $(CXXFLAGS) -o test_ER test_ER.o graph.o vertex.o
-
-#test_ER.o: test_ER.cpp graph.hpp vertex.hpp
-#	$(CXX) $(CXXFLAGS) -c test_ER.cpp
-
 test_graph_constructor: test_graph_constructor.o graph.o vertex.o point.o
 	$(CXX) $(CXXFLAGS) -o test_graph_constructor test_graph_constructor.o graph.o vertex.o point.o
 
@@ -55,5 +49,5 @@ point.o: point.hpp vertex.hpp ###
 
 vertex.o: vertex.hpp
 
-clean:
-	rm *.o
+random_points_generator: random_points_generator.cpp
+	$(CXX) $(CXXFLAGS) -o random_points_generator random_points_generator.cpp

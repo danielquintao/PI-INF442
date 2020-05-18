@@ -1,3 +1,0 @@
-Task: tester le DBSCAN
-
-Task: changer make
